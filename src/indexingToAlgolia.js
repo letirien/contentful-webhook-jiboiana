@@ -27,7 +27,11 @@ const client = algoliasearch('X3LOXZO0EA', algoliaApiKey);
 // Spécifiez le nom de l'index dans lequel vous souhaitez indexer vos projets
 const index = client.initIndex('dev_JIBOIANA');
 
-
+router.get('/', (req, res)=>{
+  res.json({
+    hello: "hi!"
+  });
+})
 // Définissez un point de terminaison pour le webhook "Index entries"
 router.post('/contentful-webhook/index', async (req, res) => {
   // Récupérez les données du projet envoyées par le webhook Contentful
@@ -95,7 +99,7 @@ router.post('/contentful-webhook/index', async (req, res) => {
 
 
 // Use the router to handle requests to the `/.netlify/functions/api` path
-app.use(`/.netlify/functions/api`, router);
+app.use(`/.netlify/functions/indexToAlgolia`, router);
 
 // Export the app and the serverless function
 module.exports = app;

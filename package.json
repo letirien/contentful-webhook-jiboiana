@@ -1,4 +1,8 @@
 {
+  "name": "netlify-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "dependencies": {
     "algoliasearch": "^4.17.1",
     "contentful": "^10.2.1",
@@ -7,9 +11,9 @@
     "netlify-lambda": "^2.0.16",
     "serverless-http": "^3.2.0"
   },
-  "scripts" : {
-    "start": "./node_modules/.bin/netlify-lambda serve src",
-    "build": "./node_modules/.bin/netlify-lambda build src"
+  "scripts": {
+    "start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve src",
+    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build src"
   }
 
 }

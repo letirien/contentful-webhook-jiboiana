@@ -48,25 +48,25 @@ app.post('/contentful-webhook/index', async (req, res) => {
   }
 });
 
-// // Définissez un point de terminaison pour le webhook "Delete unpublished entries"
-// app.post('/contentful-webhook/delete', async (req, res) => {
-//   // Récupérez les données de l'entrée supprimée envoyées par le webhook Contentful
-//   const deletedEntry = req.body;
+// Définissez un point de terminaison pour le webhook "Delete unpublished entries"
+app.post('/contentful-webhook/delete', async (req, res) => {
+  // Récupérez les données de l'entrée supprimée envoyées par le webhook Contentful
+  const deletedEntry = req.body;
 
-//   // Extrait l'ID de l'entrée supprimée
-//   const { sys } = deletedEntry;
-//   const { id } = sys;
+  // Extrait l'ID de l'entrée supprimée
+  const { sys } = deletedEntry;
+  const { id } = sys;
 
-//   // Supprimez l'enregistrement correspondant de l'index Algolia
-//   try {
-//     await index.deleteObject(id);
-//     console.log('Enregistrement supprimé avec succès de l\'index Algolia');
-//     res.sendStatus(200);
-//   } catch (error) {
-//     console.error('Erreur lors de la suppression de l\'enregistrement sur Algolia:', error);
-//     res.sendStatus(500);
-//   }
-// });
+  // Supprimez l'enregistrement correspondant de l'index Algolia
+  try {
+    await index.deleteObject(id);
+    console.log('Enregistrement supprimé avec succès de l\'index Algolia');
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Erreur lors de la suppression de l\'enregistrement sur Algolia:', error);
+    res.sendStatus(500);
+  }
+});
 
 // Fonction pour publier tous les projets existants sur Algolia
 async function publishAllProjects() {
@@ -90,35 +90,7 @@ async function publishAllProjects() {
   }
 }
 
-// Publier automatiquement tous les projets existants sur Algolia au démarrage du script
-publishAllProjects();
-
-// Démarrer le serveur Express
+// Écoutez les requêtes entrantes sur le port spécifié
 app.listen(port, () => {
-  console.log(`Serveur Express démarré sur le port ${port}`);
+  console.log(`Le serveur est à l'écoute sur le port ${port}`);
 });
-
-// // Obtenez tous les projets depuis Contentful (sans limite)
-// contentfulClient.getEntries({ content_type: 'project' })
-//   .then(res => {
-//     // Itérez sur les projets et envoyez-les à Algolia pour l'indexation
-//     res.items.forEach(project => {
-//       // Créez un objet d'indexation pour chaque projet avec les données appropriées
-//       const object = {
-//         objectID: project.sys.id,
-//         title: project.fields.title,
-//       };
-
-//       // Envoyez l'objet à Algolia pour l'indexation
-//       index.saveObject(object)
-//         .then(() => {
-//           console.log('Project indexed:', object.objectID);
-//         })
-//         .catch(error => {
-//           console.error('Error indexing project:', object.objectID, error);
-//         });
-//     });
-//   })
-//   .catch(error => {
-//     console.error('Error retrieving projects from Contentful:', error);
-//   });

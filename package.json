@@ -7,6 +7,9 @@
     "netlify-lambda": "^2.0.16",
     "serverless-http": "^3.2.0"
   },
-  "start": "./node_modules/.bin/netlify-lambda serve src",
-  "build": "./node_modules/.bin/netlify-lambda build src"
+  "scripts" : {
+    "start": "./node_modules/.bin/netlify-lambda serve src",
+    "build": "./node_modules/.bin/netlify-lambda build src"
+  }
+
 }

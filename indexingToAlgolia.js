@@ -1,4 +1,5 @@
 // Importez la bibliothèque Algolia
+const express = require('express');
 const algoliasearch = require('algoliasearch');
 // Importez Vue pour accéder à la propriété $contentful
 const Contentful = require('contentful') 
